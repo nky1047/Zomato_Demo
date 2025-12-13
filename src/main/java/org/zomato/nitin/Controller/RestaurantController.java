@@ -40,7 +40,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable String id) {
+    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable ("id") String id) {
         Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
         return restaurant.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -34,7 +34,7 @@ public class RestaurantService {
         return restaurantRepository.findById(id);
     }
 
-    public Restaurant createRestaurant(Restaurant restaurant) {
+    public Restaurant createRestaurant(Restaurant restaurant) throws PlaceOrderException {
         //return restaurantRepository.save(restaurant);
         if (restaurantRepository.existsById(restaurant.getRestaurantName())) {
             logger.info("Duplicate Restaurant Request!");

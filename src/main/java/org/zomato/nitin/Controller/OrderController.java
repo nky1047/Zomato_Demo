@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zomato.nitin.Exceptions.CustomerException;
+import org.zomato.nitin.Exceptions.PlaceOrderException;
 import org.zomato.nitin.Model.Order;
 import org.zomato.nitin.Services.OrderServiceImpl;
 
@@ -26,7 +27,7 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAllOrders(){return ResponseEntity.ok(orderService.getAllOrders());}
 
     @GetMapping("order/status/{orderId}")
-    public Map<String,Object> getOrderById(@PathVariable String orderId){
+    public Map<String,Object> getOrderById(@PathVariable ("orderId") String orderId){
         Optional<Order> orderOptional = orderService.getOrderById(orderId);
         Order order = orderOptional.get();
         Map<String,Object> response = new LinkedHashMap<>();
@@ -41,11 +42,11 @@ public class OrderController {
     * @PathVariable  - when in URL /orders/gwje9gjwegoiwjowi/orders
     * */
     @GetMapping("order/{restaurantId}/orders")
-    public ResponseEntity<Map<String, Object>> getOrderByRestaurant(@PathVariable String restaurantId){return ResponseEntity.ok(orderService.getOrdersByRestaurantId(restaurantId));}
+    public ResponseEntity<Map<String, Object>> getOrderByRestaurant(@PathVariable ("restaurantId") String restaurantId){return ResponseEntity.ok(orderService.getOrdersByRestaurantId(restaurantId));}
 
     @PostMapping("order/new")
-    public ResponseEntity<Order> newOrder(@RequestBody Order order){return new ResponseEntity<>(orderService.createOrderToRestaurant(order), HttpStatus.CREATED);}
+    public ResponseEntity<Order> newOrder(@RequestBody Order order) throws PlaceOrderException {return new ResponseEntity<>(orderService.createOrderToRestaurant(order), HttpStatus.CREATED);}
 
     @PutMapping("order/update")
-    public ResponseEntity<Order> processOrder(@RequestBody Order order){ return new ResponseEntity<>(orderService.updateOrderStatus(order),HttpStatus.ACCEPTED);}
+    public ResponseEntity<Order> processOrder(@RequestBody Order order) throws PlaceOrderException { return new ResponseEntity<>(orderService.updateOrderStatus(order),HttpStatus.ACCEPTED);}
 }

@@ -12,6 +12,7 @@ public interface OrderRepository extends MongoRepository<Order, String> {
     // Optional custom query methods
     List<Order> findByRestaurantId(String restaurantId);
 
-    @Query("{ 'restaurantId' : ?0, 'review' : { '$ne' : null } }") // Query to find orders with a non-null review for a specific restaurant
+    // Query to find orders with a non-null review for a specific restaurant
+    @Query("{ 'restaurantId' : ?0, " + "'review' : { '$ne' : null } " + "}")
     List<Order> findOrdersByRestaurantIdWithReviews(String restaurantId);
 }

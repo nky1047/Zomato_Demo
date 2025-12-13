@@ -76,7 +76,7 @@ public class OrderServiceImpl {
         return orderRepo.findById(orderId);
     }
 
-    public Order createOrderToRestaurant(Order order) {
+    public Order createOrderToRestaurant(Order order) throws PlaceOrderException {
         Optional<Restaurant> restaurantWithCurrentOrder = restaurantRepo.findById(order.getRestaurantId());
         Optional<Customer> customerWithCurrentOrder = custRepo.findById(order.getCustomerId());
 
@@ -170,7 +170,7 @@ public class OrderServiceImpl {
         return savedOrder;
     }
 
-    public Order updateOrderStatus(Order updatedOrder) {
+    public Order updateOrderStatus(Order updatedOrder) throws PlaceOrderException {
         Optional<Order> orderOptional = orderRepo.findById(updatedOrder.getOrderId());
         Optional<Restaurant> restaurantWithCurrentOrder = restaurantRepo.findById(updatedOrder.getRestaurantId());
         if (!ValidateOrderItems.compareMaps(restaurantWithCurrentOrder.get().getItemTable(), updatedOrder.getOrderItems())) {

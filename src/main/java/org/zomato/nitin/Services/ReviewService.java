@@ -44,7 +44,7 @@ public class ReviewService {
     }
 
     //    NEW REVIEW FOR ORDER
-    public Order createNewReview(Review review) {
+    public Order createNewReview(Review review) throws PlaceOrderException {
         Optional<Order> orderOptional = orderRepository.findById(review.getOrderId());
         Order currentOrder = orderOptional.get();
         if(currentOrder.getOrderId()==null){

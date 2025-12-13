@@ -30,7 +30,7 @@ public class CustomerContoller {
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable String customerId) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable ("customerId") String customerId) {
         Optional<Customer> customerOptional = custService.getCustomerById(customerId);
         return customerOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

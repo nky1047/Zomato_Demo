@@ -40,6 +40,13 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>3.4.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.24.0</version>
+        </dependency>
+
         <!--             PRETTY PRINT THE OBJECT- JSON                 -->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
@@ -50,10 +57,27 @@
 
     </dependencies>
 
+
+
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+   <build>
+       <plugins>
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-compiler-plugin</artifactId>
+           <version>3.11.0</version>
+           <configuration>
+               <compilerArgs>
+                   <arg>-parameters</arg>
+               </compilerArgs>
+           </configuration>
+       </plugin>
+       </plugins>
+   </build>
 
 </project>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.zomato.nitin.Exceptions.PlaceOrderException;
 import org.zomato.nitin.Model.Order;
 import org.zomato.nitin.Model.Review;
 import org.zomato.nitin.Services.OrderServiceImpl;
@@ -39,14 +40,14 @@ public class ReviewsController {
 
 //    ADD A REVEIEW FOR A RESTAURANT
     @PostMapping("reviews/new")
-    public Order addReviewtoRestaurant(@RequestBody Review review) {
+    public Order addReviewtoRestaurant(@RequestBody Review review) throws PlaceOrderException {
         Order order = new ResponseEntity<Order>(reviewService.createNewReview(review),HttpStatus.CREATED).getBody();
         return order;
     }
 
     //    DELETE A REVIEW
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Void> deleteReview(@PathVariable final String reviewId) {
+    public ResponseEntity<Void> deleteReview(@PathVariable ("reviewId") final String reviewId) {
         reviewService.deleteReview(reviewId);
         return ResponseEntity.noContent().build();
     }
